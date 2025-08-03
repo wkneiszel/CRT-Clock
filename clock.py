@@ -4,6 +4,7 @@ import subprocess
 import time
 import os
 import random
+import sys
 
 while True:
     currentTime = datetime.now()
@@ -11,6 +12,9 @@ while True:
     minute = currentTime.strftime('%M')
     minuteTens = minute[:1]
     minuteOnes = minute[1:]
+    ampm = currentTime.strftime('%p').lower()
+    x = random.randint(0, 128)
+    y = random.randint(0, 176)
 
     bgImages = os.listdir("images")
     bgImage = bgImages[random.randint(0,len(bgImages)-1)]
@@ -28,22 +32,29 @@ while True:
     minOneImages = os.listdir("minute-ones/"+minuteOnes)
     minOneImagePath = "minute-ones/"+minuteOnes+"/"+minOneImages[random.randint(0,len(minOneImages)-1)]
 
+    amPmImages = os.listdir("ampm/"+ampm)
+    amPmImagePath = "ampm/"+ampm+"/"+amPmImages[random.randint(0,len(amPmImages)-1)]
+
     img = Image.open(bgImagePath)
 
     hourImage = Image.open(hourImagePath)
-    img.paste(hourImage, (0,0), hourImage)
+    img.paste(hourImage, (x,y), hourImage)
 
     colonImage = Image.open(colonImagePath)
-    img.paste(colonImage, (64,0), colonImage)
+    img.paste(colonImage, (x+64,y), colonImage)
 
     minTenImage = Image.open(minTenImagePath)
-    img.paste(minTenImage, (96,0), minTenImage)
+    img.paste(minTenImage, (x+96,y), minTenImage)
 
     minOneImage = Image.open(minOneImagePath)
-    img.paste(minOneImage, (128,0), minOneImage)
+    img.paste(minOneImage, (x+128,y), minOneImage)
+
+    amPmImage = Image.open(amPmImagePath)
+    img.paste(amPmImage, (x+160,y), amPmImage)
 
     img.save("time.png")
 
-    #subprocess.run(["sudo", "fbi", "-a", "-T", "1", "time.png"])
+    if "--display" in sys.argv or "-d" in sys.argv:
+        subprocess.run(["sudo", "fbi", "-a", "-T", "1", "time.png"])
 
     time.sleep(5)
