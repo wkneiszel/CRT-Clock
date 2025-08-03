@@ -11,9 +11,9 @@ print(basepath)
 
 while True:
     useFlavor = random.randint(0,5) == 0
-    minY = 0
+    minY = 10
     if useFlavor:
-        minY = 64
+        minY = 74
 
     currentTime = datetime.now()
     hour = currentTime.strftime('%I')
@@ -21,7 +21,7 @@ while True:
     minuteTens = minute[:1]
     minuteOnes = minute[1:]
     ampm = currentTime.strftime('%p').lower()
-    x = random.randint(0, 128)
+    x = random.randint(10, 128)
     y = random.randint(minY, 176)
 
     bgImages = os.listdir(basepath + "/images")
@@ -63,7 +63,7 @@ while True:
         flavorImages = os.listdir(basepath +"/flavor")
         flavorImagePath = basepath +"/flavor/"+flavorImages[random.randint(0,len(flavorImages)-1)]
         flavorImage = Image.open(flavorImagePath)
-        img.paste(flavorImage, (0,0), flavorImage)
+        img.paste(flavorImage, (10,10), flavorImage)
 
 
     img.save(basepath +"/time.png")
