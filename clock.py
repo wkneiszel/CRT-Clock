@@ -7,6 +7,11 @@ import random
 import sys
 
 while True:
+    useFlavor = random.randint(0,5) == 0
+    minY = 0
+    if useFlavor:
+        minY = 64
+
     currentTime = datetime.now()
     hour = currentTime.strftime('%I')
     minute = currentTime.strftime('%M')
@@ -14,7 +19,7 @@ while True:
     minuteOnes = minute[1:]
     ampm = currentTime.strftime('%p').lower()
     x = random.randint(0, 128)
-    y = random.randint(0, 176)
+    y = random.randint(minY, 176)
 
     bgImages = os.listdir("images")
     bgImage = bgImages[random.randint(0,len(bgImages)-1)]
@@ -32,7 +37,7 @@ while True:
     minOneImages = os.listdir("minute-ones/"+minuteOnes)
     minOneImagePath = "minute-ones/"+minuteOnes+"/"+minOneImages[random.randint(0,len(minOneImages)-1)]
     
-    if ampm == "pm" and (hour == "12" or hour == "1" or hour == "2" or hour == "3" or hour == "4"):
+    if ampm == "pm" and (hour == "12" or hour == "01" or hour == "02" or hour == "03" or hour == "04"):
         amPmImagePath = "ampm/pm/toon.png"
     else:
         amPmImages = os.listdir("ampm/"+ampm)
@@ -51,9 +56,16 @@ while True:
     amPmImage = Image.open(amPmImagePath)
     img.paste(amPmImage, (x+160,y), amPmImage)
 
+    if useFlavor:
+        flavorImages = os.listdir("flavor")
+        flavorImagePath = "flavor/"+flavorImages[random.randint(0,len(flavorImages)-1)]
+        flavorImage = Image.open(flavorImagePath)
+        img.paste(flavorImage, (0,0), flavorImage)
+
+
     img.save("time.png")
 
     if "--display" in sys.argv or "-d" in sys.argv:
         subprocess.run(["sudo", "fbi", "-a", "-T", "1", "time.png"])
 
-    time.sleep(10)
+    time.sleep(20)
