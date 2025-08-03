@@ -31,24 +31,23 @@ while True:
 
     minOneImages = os.listdir("minute-ones/"+minuteOnes)
     minOneImagePath = "minute-ones/"+minuteOnes+"/"+minOneImages[random.randint(0,len(minOneImages)-1)]
-
-    amPmImages = os.listdir("ampm/"+ampm)
-    amPmImagePath = "ampm/"+ampm+"/"+amPmImages[random.randint(0,len(amPmImages)-1)]
+    
+    if ampm == "pm" and (hour == "12" or hour == "1" or hour == "2" or hour == "3" or hour == "4"):
+        amPmImagePath = "ampm/pm/toon.png"
+    else:
+        amPmImages = os.listdir("ampm/"+ampm)
+        amPmImagePath = "ampm/"+ampm+"/"+amPmImages[random.randint(0,len(amPmImages)-1)]
 
     img = Image.open(bgImagePath)
 
     hourImage = Image.open(hourImagePath)
     img.paste(hourImage, (x,y), hourImage)
-
     colonImage = Image.open(colonImagePath)
     img.paste(colonImage, (x+64,y), colonImage)
-
     minTenImage = Image.open(minTenImagePath)
     img.paste(minTenImage, (x+96,y), minTenImage)
-
     minOneImage = Image.open(minOneImagePath)
     img.paste(minOneImage, (x+128,y), minOneImage)
-
     amPmImage = Image.open(amPmImagePath)
     img.paste(amPmImage, (x+160,y), amPmImage)
 
@@ -57,4 +56,4 @@ while True:
     if "--display" in sys.argv or "-d" in sys.argv:
         subprocess.run(["sudo", "fbi", "-a", "-T", "1", "time.png"])
 
-    time.sleep(5)
+    time.sleep(10)
