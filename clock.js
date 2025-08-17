@@ -94,5 +94,5 @@ function drawTime() {
 
 window.onload = function () {
     drawTime();
-    setInterval(() => drawTime(), 2000);
+    setInterval(() => drawTime(), 10000);
 }
