@@ -32,7 +32,8 @@ function drawTime() {
 
     // Calculate time strings
     var now = new Date(Date.now());
-    var hour = (now.getHours() % 12).toString().padStart(2, "0");
+    var hourInt = (now.getHours() % 12) == 0 ? 12 : (now.getHours() % 12);
+    var hour = hourInt.toString().padStart(2, "0");
     var minuteTens = now.getMinutes().toString().padStart(2, "0").substring(0, 1);
     var minuteOnes = now.getMinutes().toString().padStart(2, "0").substring(1, 2);
     var amPm = (now.getHours() / 12) > 1 ? "pm" : "am";
@@ -78,7 +79,13 @@ function drawTime() {
         }
 
         var amPmImg = new Image;
-        amPmImg.src = "./ampm/" + amPm + "/" + amPmFiles[randomInteger(0, amPmFiles.length - 1)];
+        
+        if (amPm == "pm" && (hour == "12" || hour == "01" || hour == "02" || hour == "03" || hour == "04")) {
+            amPmImg.src = "./ampm/pm/toon.png";
+        }
+        else {
+            amPmImg.src = "./ampm/" + amPm + "/" + amPmFiles[randomInteger(0, amPmFiles.length - 1)];
+        }
         amPmImg.onload = function () {
             ctx.drawImage(amPmImg, x + 160, y);
         }
@@ -87,5 +94,5 @@ function drawTime() {
 
 window.onload = function () {
     drawTime();
-    setInterval(() => drawTime(), 20000);
+    setInterval(() => drawTime(), 2000);
 }
