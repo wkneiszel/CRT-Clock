@@ -36,7 +36,7 @@ function drawTime() {
     var hour = hourInt.toString().padStart(2, "0");
     var minuteTens = now.getMinutes().toString().padStart(2, "0").substring(0, 1);
     var minuteOnes = now.getMinutes().toString().padStart(2, "0").substring(1, 2);
-    var amPm = (now.getHours() / 12) > 1 ? "pm" : "am";
+    var amPm = (now.getHours() / 12) >= 1 ? "pm" : "am";
 
     var bgImg = new Image;
     bgImgName = backGroundFiles[randomInteger(0, backGroundFiles.length - 1)]
@@ -94,5 +94,5 @@ function drawTime() {
 
 window.onload = function () {
     drawTime();
-    setInterval(() => drawTime(), 20000);
+    setInterval(() => drawTime(), 2000);
 }
