@@ -13,19 +13,29 @@
         background-position: 0 -20px;
     }
 }
+#main {
+    background-color: "#212022";
+}
+
+.clockscene{
+    position: absolute;
+    z-index: 3;
+}
 
 .crt {
+    z-index: 1;
     position: absolute;
-    x: 0;
-    y: 0;
+    top:156px;
+    left: 122px;
     filter: blur(.5px);
     border-radius: 20px;
 }
 
 .crtFilter {
+    z-index: 2;
     opacity: 10%;
-    x: 0;
-    y: 0;
+    top:155px;
+    left: 121px;
     background: linear-gradient(to top, #757575, #757575, #ffffff, #ffffff);
     background-size: cover;
     background-size: 100% 5px;
