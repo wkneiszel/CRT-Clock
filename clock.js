@@ -79,7 +79,7 @@ function drawTime() {
         }
 
         var amPmImg = new Image;
-        
+
         if (amPm == "pm" && (hour == "12" || hour == "01" || hour == "02" || hour == "03" || hour == "04")) {
             amPmImg.src = "./ampm/pm/toon.png";
         }
@@ -94,5 +94,5 @@ function drawTime() {
 
 window.onload = function () {
     drawTime();
-    setInterval(() => drawTime(), 2000);
+    setInterval(() => drawTime(), 20000);
 }
