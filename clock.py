@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image
 from datetime import datetime
 import subprocess
 import time
